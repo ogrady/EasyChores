@@ -43,8 +43,8 @@ export class App {
         this.express.engine("jsx", require("express-react-views").createEngine());
 
         this.express.get("/", (req, res, next) => {
-            //res.render("index", { name: 'John', title: "foo" });
-            res.render("tasks", { name: 'John', title: "foo" });
+            res.render("index", { name: 'John', title: "foo", value: "foo" });
+            //res.render("tasks", { name: 'John', title: "foo" });
         });
 
         this.express.use("/rest/person", new PersonRoutes(this).express);

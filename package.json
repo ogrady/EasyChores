@@ -24,7 +24,6 @@
     "webpack-cli": "^4.8.0"
   },
   "dependencies": {
-    "@crow1796/vue-bulma-tabs": "^1.0.8",
     "@types/better-sqlite3": "^7.4.0",
     "better-sqlite3": "^7.4.3",
     "db-migrate": "^0.11.12",
@@ -32,6 +31,7 @@
     "express": "^4.17.1",
     "express-react-views": "^0.11.0",
     "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react-dom": "^16.14.0",
+    "react-tabs": "^3.2.2"
   }
 }
