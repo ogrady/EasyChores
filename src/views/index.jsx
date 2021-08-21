@@ -1,5 +1,5 @@
 var React = require("react");
-var DefaultLayout = require("./layouts/default");
+import { DefaultLayout } from "./layouts/default";
 import { Tab, Tabs, TabList, TabPanel, setTabIndex } from 'react-tabs';
 
 function HelloMessage(props) {

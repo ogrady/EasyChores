@@ -6,16 +6,16 @@ export function TaskForm(props) {
       <form action="/rest/task/add" method="POST">
         <fieldset>
           <legend>Name</legend>
-          <label for="name">
+          <label htmlFor="name">
               Title: <input name="name" placeholder="title"></input>
           </label>
-          <label for="description">
+          <label htmlFor="description">
               Description: <input name="description" placeholder="description"></input>
           </label>
         </fieldset>
         <fieldset>
           <legend>Due after</legend>
-          <label for="days">
+          <label htmlFor="days">
               <input name="due-days" type="number" placeholder="0"></input> days
               <input name="due-hours" type="number" min="0" max="23" placeholder="0"></input> hours
               <input name="due-minutes" type="number" min="0" max="59" placeholder="0"></input> minutes
@@ -25,5 +25,3 @@ export function TaskForm(props) {
       </form> 
   );
 }
-
-//module.exports = TaskForm;

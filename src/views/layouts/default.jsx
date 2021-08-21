@@ -1,8 +1,8 @@
-var React = require('react');
+import React from "react"
 import { TaskForm } from "../tasks";
-//var { TaskForm } = require("../tasks");
+import { PersonForm } from "../persons";
 
-function DefaultLayout(props) {
+export function DefaultLayout(props) {
   return (
     <html>
       <head>
@@ -23,18 +23,16 @@ function DefaultLayout(props) {
                 <li><a href="#persons-tab">Persons</a></li>
             </ul>
             <div id="task-list-tab">
-                <TaskForm></TaskForm>
+                asdasda
             </div>
             <div id="tasks-tab">
-                gfds
+                <TaskForm></TaskForm>
             </div>
             <div id="persons-tab">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                <PersonForm></PersonForm>
             </div>
             </div>
         </body>
     </html>
   );
 }
-
-module.exports = DefaultLayout;

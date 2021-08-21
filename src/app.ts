@@ -44,8 +44,7 @@ export class App {
 
         this.express.get("/", (req, res, next) => {
             res.render("index", { 
-                title: "Chores",
-                tasklist: res.render("tasks")
+                title: "Chores"
             });
         });
 
