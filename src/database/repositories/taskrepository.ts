@@ -2,6 +2,28 @@ import { DBRepository } from "./dbrepository";
 import * as db from "../database";
 
 export class TaskRepository extends DBRepository {
+    public getTaskNames(): [number, string][] {
+        return [[1, "foo"], [2, "bar"], [3, "baz"]] // this.execute(db => db.prepare("SELECT id, name FROM task_templates"))?.all().map(row => [row.id, row.name]) ?? [];
+    }
+
+    public getOpenTasks(): any {
+        return this.execute(db => db.prepare(`
+            SELECT 
+                t.id,
+                tt.name,
+                tt.description,
+
+                -- FIXME: due
+            FROM 
+                tasks AS t 
+                JOIN task_templates AS tt 
+                  ON t.template_id = tt.id 
+                JOIN assignees AS a
+                  ON t.id = a.task_id
+                JOIN persons AS p
+                  ON p.id = a.person_id`));
+    }
+
     public assignTask(taskId: number, personId: number): void {
         this.execute(db => db.prepare("INSERT INTO assignees(task_id, person_id)").run(taskId, personId));
     }

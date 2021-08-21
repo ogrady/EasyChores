@@ -37,6 +37,7 @@ export class Database {
 
         let res: T | undefined;
         try {
+            console.log(db)
             res = f(db);
         } catch (err) {
             res = undefined;

@@ -25,8 +25,6 @@ export class App {
         this.users = [];
         this.logger = new Logger();
         this.database = Database.getInstance(__dirname + "/../database/database.db");
-        console.log(__dirname);
-        console.log(this.database);
         this.taskRepository = new TaskRepository(this.database);
         this.personRepository = new PersonRepository(this.database);
     }
@@ -55,7 +53,7 @@ export class App {
 
         // handle undefined routes
         this.express.use("*", (req, res, next) => {
-            res.send("Make sure url is correct!!!");
+            res.sendStatus(404);
         });
 
         

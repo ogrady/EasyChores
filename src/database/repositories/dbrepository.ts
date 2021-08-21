@@ -9,6 +9,7 @@ export abstract class DBRepository {
     }
 
     protected execute<T>(f: (sqlite3: sqlite3.Database) => T): T | undefined {
+        console.log(this.database)
         return this.database.execute(f);
     }
 }

@@ -1,5 +1,5 @@
 import React from "react"
-import { TaskForm } from "../tasks";
+import { TaskForm, TaskTemplateForm } from "../tasks";
 import { PersonForm } from "../persons";
 
 export function DefaultLayout(props) {
@@ -19,14 +19,14 @@ export function DefaultLayout(props) {
             <div id="tabs">
             <ul>
                 <li><a href="#task-list-tab">Task List</a></li>
-                <li><a href="#tasks-tab">Tasks</a></li>
+                <li><a href="#tasks-tab">Tasks Templates</a></li>
                 <li><a href="#persons-tab">Persons</a></li>
             </ul>
             <div id="task-list-tab">
-                asdasda
+                <TaskForm></TaskForm>
             </div>
             <div id="tasks-tab">
-                <TaskForm></TaskForm>
+                <TaskTemplateForm></TaskTemplateForm>
             </div>
             <div id="persons-tab">
                 <PersonForm></PersonForm>
