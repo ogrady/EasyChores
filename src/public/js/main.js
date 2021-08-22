@@ -11,7 +11,12 @@ $(document).ready(() => {
             source: data.map(([id, name]) => name),
             change: (event, ui) => {
                 if(ui.item !== null) {
-                    $("#task-form #template-id").val(tasks[ui.item.label]);
+                    const id = tasks[ui.item.label];
+                    if(id !== undefined) {
+                        $("#task-form #template-id").val(id);
+                    } else {
+                        $("#task-form #name").val("");
+                    }                    
                 }
             }
         });

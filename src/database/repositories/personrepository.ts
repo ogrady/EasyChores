@@ -1,11 +1,7 @@
 import { Database } from "../database";
 import { DBRepository } from "./dbrepository";
 
-export class PersonRepository extends DBRepository {
-    public getAllPersons(): any {
-        return this.execute(db => db.prepare("SELECT name FROM persons"));
-    }
-    
+export class PersonRepository extends DBRepository {   
     public constructor(database: Database) {
         super(database);
     }
@@ -14,4 +10,7 @@ export class PersonRepository extends DBRepository {
         this.execute(db => db.prepare("INSERT INTO persons(name) VALUES (?)").run(name));
     }
 
+    public getAllPersons(): [number, string][] {
+        return this.execute(db => db.prepare("SELECT id, name FROM persons").all()) ?? [];
+    }
 }

@@ -3,10 +3,11 @@ import * as db from "../database";
 
 export class TaskRepository extends DBRepository {
     public getTaskNames(): [number, string][] {
-        return [[1, "foo"], [2, "bar"], [3, "baz"]] // this.execute(db => db.prepare("SELECT id, name FROM task_templates"))?.all().map(row => [row.id, row.name]) ?? [];
+        return this.execute(db => db.prepare("SELECT id, name FROM task_templates")?.all().map(row => [row.id as number, row.name as string])) ?? [];
     }
 
     public getOpenTasks(): any {
+        return null;
         return this.execute(db => db.prepare(`
             SELECT 
                 t.id,
