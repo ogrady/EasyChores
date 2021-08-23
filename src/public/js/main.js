@@ -2,24 +2,26 @@ $(document).ready(() => {
     $( "#tabs" ).tabs({
         active: 0
     });
-
-    $.get("/rest/task/all-task-templates", {}, data => {
-
-    });
     
 
-    var editableTable = new BSTable("example",{
+    const templateTable = new BSTable("task-template-list",{
         onEdit: function() {}, 
         onBeforeDelete: function() {}, 
         onDelete: function() {}, 
         //onAdd: function() {},
-        $addButton: $('#new-row-button')
+        //$addButton: $('#new-row-button')
     });
-    
+    templateTable.init();
 
-    console.log(editableTable);
+    const personTable = new BSTable("person-list",{
+        onEdit: function() {}, 
+        onBeforeDelete: function() {}, 
+        onDelete: function() {}, 
+        //onAdd: function() {},
+        //$addButton: $('#new-row-button')
+    });
+    personTable.init();
     
-
     $.get("/rest/task/tasknames", {}, data => {
         const tasks = Object.assign({}, ...data.map(([id, name]) => ({[name]: id})));
 

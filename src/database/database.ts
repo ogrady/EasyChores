@@ -7,6 +7,14 @@ export class Database {
         return database;
     }
 
+    public static date(d: Date): string {
+        return d.toISOString();
+    }
+
+    public static str(s: string): string {
+        return `'${s}'`;
+    }
+
     readonly file: string;
 
     private constructor(file: string) {
@@ -40,6 +48,7 @@ export class Database {
             res = f(db);
         } catch (err) {
             res = undefined;
+            console.error(`DB execute: ${err["message"]} (stack: ${new Error().stack})`);
             //LOG.error(`DB execute: ${err["message"]} (stack: ${new Error().stack})`);
         } finally {
             const end = new Date().getTime();

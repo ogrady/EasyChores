@@ -41,3 +41,4 @@ export class TaskRoutes extends AbstractRoutes {
         this.express.get("/all-task-templates", (req, res, next) => res.send(this.app.taskRepository.getAllTaskTemplates()));
     }
 }
+

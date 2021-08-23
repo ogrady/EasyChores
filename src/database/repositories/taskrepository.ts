@@ -1,5 +1,5 @@
 import { DBRepository } from "./dbrepository";
-import * as db from "../database";
+import * as database from "../database";
 import { SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG } from "constants";
 
 export class TaskRepository extends DBRepository {
@@ -12,37 +12,23 @@ export class TaskRepository extends DBRepository {
     }
 
     public getOpenTasks(): any {
-        return null;
-        return this.execute(db => db.prepare(`
-            SELECT 
-                t.id,
-                tt.name,
-                tt.description,
-
-                -- FIXME: due
-            FROM 
-                tasks AS t 
-                JOIN task_templates AS tt 
-                  ON t.template_id = tt.id 
-                JOIN assignees AS a
-                  ON t.id = a.task_id
-                JOIN persons AS p
-                  ON p.id = a.person_id`));
+        return this.execute(db => db.prepare(`SELECT task_id, task_name, task_description, start_time, due_after, due, assignee_id, assignee_name FROM open_tasks`).all());
     }
 
     public assignTask(taskId: number, personId: number): void {
         this.execute(db => db.prepare("INSERT INTO assignees(task_id, person_id)").run(taskId, personId));
     }
 
-    public createTaskFromTemplate(templateId: number): void {
-        this.execute(db => db.prepare("INSERT INTO tasks(template_id, created, due) VALUES (?, ?, ?)").run(templateId, new Date(), 42));  // FIXME: due from template
+    public createTaskFromTemplate(templateId: number, start: Date = new Date()): void {
+        console.log(templateId, start);
+        this.execute(db => db.prepare("INSERT INTO tasks(template_id, start_time) VALUES (?, ?)").run(templateId, database.Database.date(start)));
     }
 
     public setDone(taskId: number): void {
         this.execute(db => db.prepare("UPDATE tasks SET done = ? WHERE id = ?").run(taskId, new Date()));
     }
 
-    public constructor(database: db.Database) {
+    public constructor(database: database.Database) {
         super(database);
     }
 
@@ -58,22 +44,3 @@ export class TaskRepository extends DBRepository {
         });
     }
 }
-
-/*
-CREATE TABLE task_templates (
-    id INTEGER PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT,
-    due_after INTEGER, -- minutes
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP    
-);
-
-
-CREATE TABLE tasks (
-    id INTEGER PRIMARY KEY,
-    template_id INTEGER NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    due TIMESTAMP,
-    FOREIGN KEY(template_id) REFERENCES tasks(id)
-);
-*/
