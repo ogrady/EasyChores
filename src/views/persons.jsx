@@ -1,5 +1,6 @@
 var React = require("react");
 var DefaultLayout = require("./layouts/default");
+import { App } from "../app";
 
 export function PersonForm(props) {
   return (
@@ -14,3 +15,31 @@ export function PersonForm(props) {
         </form> 
   );
 }
+
+function PersonListRow(props) {
+  return (
+    <tr>
+    <th scope="row">{props.person.id}</th>
+    <td>{props.person.name}</td>
+  </tr>
+  );
+}
+
+export function PersonList(props) {
+  return (
+    <table className="table table-striped table-bordered" id="person-list">
+      <thead className="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        { App.getInstance().personRepository.getAllPersons().map((p, i) => <PersonListRow person={p} />) }
+      </tbody>
+    </table>
+  );
+}
+
+
+

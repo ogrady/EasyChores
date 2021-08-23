@@ -1,5 +1,6 @@
 var React = require("react");
 var DefaultLayout = require("./layouts/default");
+import { App } from "../app";
 
 export function TaskTemplateForm(props) {
   return (
@@ -40,5 +41,34 @@ export function TaskForm(props) {
         <input type="submit" value="Create Task"></input>
       </form> 
     </>
+  );
+}
+
+function TaskTemplateListRow(props) {
+  return (
+    <tr>
+    <th scope="row">{props.template.id}</th>
+    <td>{props.template.name}</td>
+    <td>{props.template.description}</td>
+    <td>{props.template.due_after}</td>
+  </tr>
+  );
+}
+
+export function TaskTemplateList(props) {
+  return (
+    <table className="table table-striped table-bordered" id="task-template-list">
+      <thead className="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Due After (Minutes)</th>
+        </tr>
+      </thead>
+      <tbody>
+        { App.getInstance().taskRepository.getAllTaskTemplates().map((t, i) => <TaskTemplateListRow template={t} />) }
+      </tbody>
+    </table>
   );
 }

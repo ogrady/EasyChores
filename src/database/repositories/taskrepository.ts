@@ -1,9 +1,14 @@
 import { DBRepository } from "./dbrepository";
 import * as db from "../database";
+import { SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG } from "constants";
 
 export class TaskRepository extends DBRepository {
     public getTaskNames(): [number, string][] {
         return this.execute(db => db.prepare("SELECT id, name FROM task_templates")?.all().map(row => [row.id as number, row.name as string])) ?? [];
+    }
+
+    public getAllTaskTemplates(): any[] {
+        return this.execute(db => db.prepare("SELECT id, name, description, due_after FROM task_templates")?.all()) ?? [];
     }
 
     public getOpenTasks(): any {

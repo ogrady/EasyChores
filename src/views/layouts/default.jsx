@@ -1,6 +1,6 @@
 import React from "react"
-import { TaskForm, TaskTemplateForm } from "../tasks";
-import { PersonForm } from "../persons";
+import { TaskForm, TaskTemplateForm, TaskTemplateList } from "../tasks";
+import { PersonForm, PersonList } from "../persons";
 
 export function DefaultLayout(props) {
   return (
@@ -9,8 +9,15 @@ export function DefaultLayout(props) {
             <link rel="stylesheet" href="/static/css/jquery-ui.min.css"></link>
             <link rel="stylesheet" href="/static/css/jquery-ui.structure.min.css"></link>
             <link rel="stylesheet" href="/static/css/jquery-ui.theme.min.css"></link>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"></link>
+            <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"></link>
+            <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"></link>
             <script src="/static/js/jquery.js"></script>
             <script src="/static/js/jquery-ui.min.js"></script>
+            <script src="/static/js/bstable.js"></script> 
+
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
             <script src="/static/js/main.js"></script>
             <title>{props.title}</title>
         </head>
@@ -27,11 +34,24 @@ export function DefaultLayout(props) {
             </div>
             <div id="tasks-tab">
                 <TaskTemplateForm></TaskTemplateForm>
+                <TaskTemplateList></TaskTemplateList>
             </div>
             <div id="persons-tab">
                 <PersonForm></PersonForm>
+                <PersonList></PersonList>
             </div>
             </div>
+
+        
+
+
+
+<button id="new-row-button" class="btn btn-dark">
+  New Row
+</button>
+
+
+
         </body>
     </html>
   );

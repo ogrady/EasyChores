@@ -3,6 +3,23 @@ $(document).ready(() => {
         active: 0
     });
 
+    $.get("/rest/task/all-task-templates", {}, data => {
+
+    });
+    
+
+    var editableTable = new BSTable("example",{
+        onEdit: function() {}, 
+        onBeforeDelete: function() {}, 
+        onDelete: function() {}, 
+        //onAdd: function() {},
+        $addButton: $('#new-row-button')
+    });
+    
+
+    console.log(editableTable);
+    
+
     $.get("/rest/task/tasknames", {}, data => {
         const tasks = Object.assign({}, ...data.map(([id, name]) => ({[name]: id})));
 

@@ -8,6 +8,11 @@ import { PersonRepository } from "./database/repositories/personrepository";
 import { PersonRoutes } from "./routes/personroutes";
 
 export class App {
+    private static instance: App = new App();
+
+    public static getInstance(): App {
+        return App.instance;
+    }
 
     public readonly express: express.Application;
     public readonly logger: Logger;
@@ -15,18 +20,14 @@ export class App {
     public readonly taskRepository: TaskRepository;
     public readonly personRepository: PersonRepository;
 
-    // array to hold users
-    public users: any[];
-
-    constructor() {
-        this.express = express();
-        this.middleware();
-        this.routes();
-        this.users = [];
+    private constructor() {
         this.logger = new Logger();
         this.database = Database.getInstance(__dirname + "/../database/database.db");
         this.taskRepository = new TaskRepository(this.database);
         this.personRepository = new PersonRepository(this.database);
+        this.express = express();
+        this.middleware();
+        this.routes();
     }
 
     // Configure Express middleware.
@@ -42,7 +43,8 @@ export class App {
 
         this.express.get("/", (req, res, next) => {
             res.render("index", { 
-                title: "Chores"
+                title: "Chores",
+                templates: this.taskRepository.getAllTaskTemplates()
             });
         });
 
