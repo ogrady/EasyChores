@@ -13,7 +13,7 @@ Small utility to note down repeatable household chores and assign them to a pers
 # Installation
 ```sh
 npm i
-``´
+```
 from the main directory. Then do an initial migration (see below).
 
 ## Database
