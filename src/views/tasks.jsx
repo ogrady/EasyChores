@@ -75,6 +75,17 @@ export function TaskTemplateList(props) {
 
 function OpenTaskListRow(props) {
   return (
+    <div className="open-task-card" data-id={props.task.task_id} data-name={props.task.task_name} data-description={props.task.task_description} data-due={props.task.due} data-assignee_name={props.task.assignee_name}>
+      <h1 scope="row"> {props.task.task_name}</h1>
+      <p>
+        <span className="task-description">{props.task.task_description}</span>
+        <span className="task-due">{props.task.due}</span>
+        <span className="task-assignees">{props.task.assignee_name}</span>
+      </p>
+    </div>
+  );
+  /*
+  return (
     <tr>
     <th scope="row">{props.task.task_id}</th>
     <td>{props.task.task_name}</td>
@@ -83,9 +94,16 @@ function OpenTaskListRow(props) {
     <td>{props.task.assignee_name}</td>
   </tr>
   );
+  */
 }
   
 export function OpenTaskList(props) {
+  return (
+    <div className="" id="open-task-list">
+      { App.getInstance().taskRepository.getOpenTasks().map((t, i) => <OpenTaskListRow task={t} />) }
+    </div>
+  );
+  /*
   return (
     <table className="table table-striped table-bordered" id="open-task-list">
       <thead className="thead-dark">
@@ -102,4 +120,5 @@ export function OpenTaskList(props) {
       </tbody>
     </table>
   );
+  */
 }

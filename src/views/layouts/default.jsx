@@ -12,6 +12,7 @@ export function DefaultLayout(props) {
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossOrigin="anonymous"></link>
             <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"></link>
             <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"></link>
+            <link href="/static/css/main.css" rel="stylesheet"></link>
             <script src="/static/js/jquery.js"></script>
             <script src="/static/js/jquery-ui.min.js"></script>
             <script src="/static/js/bstable.js"></script> 
@@ -41,6 +42,13 @@ export function DefaultLayout(props) {
                 <PersonForm></PersonForm>
                 <PersonList></PersonList>
             </div>
+            </div>
+
+            <div id="dialog-message" class="open-task-card">
+                <h1>foo?</h1>
+                <p>
+                    bar.
+                </p>
             </div>
         </body>
     </html>
