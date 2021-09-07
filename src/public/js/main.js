@@ -1,5 +1,23 @@
+function ajaxPatch(url, data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("PATCH", url);
+    
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    
+    /*
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+    }};
+    */
+    
+    xhr.send(JSON.stringify(data));
+}
+
 function assigneeSelector(persons, selected) {
-    const options = persons.map(p => `<option value="${p.id}">${p.name}</option>`).join("\n");
+    const options = persons.map(p => `<option value="${p.id}" ${true ? "selected" : ""}>${p.name}</option>`).join("\n");
     return `<select multiple="multiple" class="assignees-selector" name="assignees[]">${options}</select>`
 }
 
@@ -15,7 +33,8 @@ function taskDialog(name, description, id, assignees, due) {
                 {
                     text: "Done",
                     icon: "ui-icon-check",
-                    click: e => modal.dialog("close")
+                    //click: e => modal.dialog("close")
+                   click: e => ajaxPatch("rest/task/done", { "task-id": id })
                 }
             ]
         });

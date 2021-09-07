@@ -25,7 +25,8 @@ export class TaskRepository extends DBRepository {
     }
 
     public setDone(taskId: number): void {
-        this.execute(db => db.prepare("UPDATE tasks SET done = ? WHERE id = ?").run(taskId, new Date()));
+        console.log(database.Database.date(new Date()), taskId)
+        this.execute(db => db.prepare("UPDATE tasks SET done = ? WHERE id = ?").run(database.Database.date(new Date()), taskId));
     }
 
     public constructor(database: database.Database) {
