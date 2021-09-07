@@ -1,20 +1,28 @@
+function assigneeSelector(persons, selected) {
+    const options = persons.map(p => `<option value="${p.id}">${p.name}</option>`).join("\n");
+    return `<select multiple="multiple" class="assignees-selector" name="assignees[]">${options}</select>`
+}
+
+
 function taskDialog(name, description, id, assignees, due) {
-    const modal = $(`<div class="task-modal" <p>${description}</p></div>`);
-    modal.dialog({
-        modal: true,
-        title: name,
-        buttons: [
-            {
-                text: "okay",
-                icon: "ui-icon-check",
-                click: e => modal.dialog("close")
-            }
-        ]
-        /*{
-          Ok: () => modal.dialog( "close" ),
-          Done: () => modal.dialog( "close" )
-        }*/
+    $.get("/rest/person/all", {}, persons => {
+        const modal = $(`<div class="task-modal" <p>${description}</p>${assigneeSelector(persons, assignees)}</div>`);
+        modal.dialog({
+            modal: true,
+            title: name,
+            width: 600,
+            buttons: [
+                {
+                    text: "Done",
+                    icon: "ui-icon-check",
+                    click: e => modal.dialog("close")
+                }
+            ]
+        });
+        $(".assignees-selector").multiSelect();
     });
+
+
 }
 
 
@@ -23,8 +31,7 @@ $(document).ready(() => {
         active: 0
     });
 
-
-    $("#open-task-list").on("click", ".open-task-card", e => {
+        $("#open-task-list").on("click", ".open-task-card", e => {
         const $task = $(e.currentTarget);
 
         taskDialog($task.data("name"), $task.data("description"), $task.data("id"), $task.data("assignees"), $task.data("due"));
