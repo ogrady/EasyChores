@@ -46,7 +46,7 @@ export function DefaultLayout(props) {
             </div>
             </div>
 
-            <span class="ui-icon ui-icon-check"></span>
+            <span className="ui-icon ui-icon-check"></span>
 
 
 

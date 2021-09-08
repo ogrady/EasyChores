@@ -28,7 +28,8 @@ function taskDialog(name, description, id, assignees, due) {
         modal.dialog({
             modal: true,
             title: name,
-            width: 600,
+            width: $(window).width() - 30,
+            height: $(window).height() - 30,
             buttons: [
                 {
                     text: "Done",
@@ -38,7 +39,10 @@ function taskDialog(name, description, id, assignees, due) {
                 }
             ]
         });
-        $(".assignees-selector").multiSelect();
+        $(".assignees-selector").multiSelect({
+            afterSelect: elements => elements.map(element => $.post("/rest/task/assign", {"task-id": id, "person-id": element})),
+            afterDeselect: elements => elements.map(element => $.ajax({type: "DELETE", url: "/rest/task/unassign", data: {"task-id": id, "person-id": element}}))
+        });
     });
 
 

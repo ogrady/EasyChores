@@ -22,6 +22,13 @@ export class TaskRoutes extends AbstractRoutes {
             res.send("Assigned task!");
         });
 
+        this.express.delete("/unassign", (req, res, next) => {
+            const taskId = req.body["task-id"];
+            const personId = req.body["person-id"];
+            this.app.taskRepository.unassignTask(taskId, personId);
+            res.send("Unassigned task!");
+        });
+
         this.express.post("/from-template", (req, res, next) => {
             const templateId = req.body["template-id"];
             this.app.taskRepository.createTaskFromTemplate(templateId);

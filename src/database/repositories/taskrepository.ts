@@ -16,7 +16,12 @@ export class TaskRepository extends DBRepository {
     }
 
     public assignTask(taskId: number, personId: number): void {
-        this.execute(db => db.prepare("INSERT INTO assignees(task_id, person_id)").run(taskId, personId));
+        this.execute(db => db.prepare("INSERT INTO assignees(task_id, person_id) VALUES(?, ?)").run(taskId, personId));
+    }
+
+    public unassignTask(taskId: number, personId: number): void {
+        console.log(taskId, personId)
+        this.execute(db => db.prepare("DELETE FROM assignees WHERE task_id = ? AND person_id = ?").run(taskId, personId));
     }
 
     public createTaskFromTemplate(templateId: number, start: Date = new Date()): void {
