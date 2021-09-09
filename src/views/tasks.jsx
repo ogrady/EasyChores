@@ -75,7 +75,7 @@ export function TaskTemplateList(props) {
 
 function OpenTaskListRow(props) {
   return (
-    <div className="open-task-card" data-id={props.task.task_id} data-name={props.task.task_name} data-description={props.task.task_description} data-due={props.task.due} data-assignee_name={props.task.assignee_name}>
+    <div className="open-task-card" data-id={props.task.task_id} data-name={props.task.task_name} data-description={props.task.task_description} data-due={props.task.due} data-assignee_ids={props.task.assignee_ids}>
       <h1 scope="row"> {props.task.task_name}</h1>
       <p>
         <span className="task-description">{props.task.task_description}</span>

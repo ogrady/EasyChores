@@ -12,7 +12,15 @@ export class TaskRepository extends DBRepository {
     }
 
     public getOpenTasks(): any {
-        return this.execute(db => db.prepare(`SELECT task_id, task_name, task_description, start_time, due_after, due, assignee_id, assignee_name FROM open_tasks`).all());
+        return this.execute(db => db.prepare(`
+        SELECT 
+            task_id, task_name, task_description, start_time, due_after, due,
+            group_concat(assignee_id, ',') AS assignee_ids
+        FROM 
+            open_tasks
+        GROUP BY 
+            task_id, task_name, task_description, start_time, due_after, due
+    `).all());
     }
 
     public assignTask(taskId: number, personId: number): void {
