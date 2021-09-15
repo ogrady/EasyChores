@@ -6,6 +6,7 @@ import { Database } from "./database/database";
 import { TaskRepository } from "./database/repositories/taskrepository";
 import { PersonRepository } from "./database/repositories/personrepository";
 import { PersonRoutes } from "./routes/personroutes";
+import * as U from "./util";
 
 export class App {
     private static instance: App = new App();
@@ -28,6 +29,13 @@ export class App {
         this.express = express();
         this.middleware();
         this.routes();
+        this.rescheduleTasks();
+    }
+
+    public rescheduleTasks(): void {
+        for(const schedule of this.taskRepository.getAllSchedules()) {
+            U.setUpTaskSchedule(schedule.template_id, schedule.cron, this.taskRepository);
+        }
     }
 
     // Configure Express middleware.

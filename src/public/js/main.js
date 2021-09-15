@@ -51,19 +51,19 @@ function taskDialog(name, description, id, assignees, due) {
 
 
 $(document).ready(() => {
+    // tabify and set active tab
     $( "#tabs" ).tabs({
         active: 0
     });
 
-        $("#open-task-list").on("click", ".open-task-card", e => {
+    // set handler for task detail view
+    $("#open-task-list").on("click", ".open-task-card", e => {
         const $task = $(e.currentTarget);
-
-        console.log("ids",  $task.data("assignee_ids"))
         const ids = $task.data("assignee_ids") ? String($task.data("assignee_ids")).split(",").map(s => parseInt(s)) : []  // if only one ID is present, type will be number, else it will be string → cast to string to be safe
         taskDialog($task.data("name"), $task.data("description"), $task.data("id"), ids, $task.data("due"));
     })
     
-
+    // tablify templates
     const templateTable = new BSTable("task-template-list",{
         onEdit: function() {}, 
         onBeforeDelete: function() {}, 
@@ -73,6 +73,7 @@ $(document).ready(() => {
     });
     templateTable.init();
 
+    // tabilify persons
     const personTable = new BSTable("person-list",{
         onEdit: function() {}, 
         onBeforeDelete: function() {}, 
@@ -82,8 +83,7 @@ $(document).ready(() => {
     });
     personTable.init();
 
-
-    
+    // add autocomplete to task creation dialog    
     $.get("/rest/task/tasknames", {}, data => {
         const tasks = Object.assign({}, ...data.map(([id, name]) => ({[name]: id})));
 
@@ -101,6 +101,11 @@ $(document).ready(() => {
                 }
             }
         });
+    });
+
+    $("#test-button").click(e => {
+        console.log("asdasd")
+        $.post("/rest/task/schedule", {"template-id": 1, "cron": "* * * * *"}) // at every minute
     });
     
 });

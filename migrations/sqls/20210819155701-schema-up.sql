@@ -32,6 +32,14 @@ CREATE TABLE assignees (
 );
 
 
+CREATE TABLE schedules (
+    id INTEGER PRIMARY KEY,
+    template_id INTEGER NOT NULL,
+    cron TEXT,
+    FOREIGN KEY(template_id) REFERENCES task_templates(id)
+);
+
+
 CREATE VIEW open_tasks AS
     SELECT 
         t.id AS task_id,
@@ -53,3 +61,4 @@ CREATE VIEW open_tasks AS
     WHERE 
         t.done IS NULL
 ;
+
